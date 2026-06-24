@@ -1,0 +1,178 @@
+[
+  {
+    "id": "veg-burger",
+    "name": "Veg Burger",
+    "image": "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=800&q=80",
+    "category": "burger",
+    "price": 120,
+    "description": "Crispy vegetable patty with fresh lettuce, tomato, and special sauce in a toasted bun."
+  },
+  {
+    "id": "cheese-burger",
+    "name": "Cheese Burger",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80",
+    "category": "burger",
+    "price": 180,
+    "description": "Juicy grilled patty topped with melted cheddar cheese, pickles, and signature mayo."
+  },
+  {
+    "id": "chicken-burger",
+    "name": "Chicken Burger",
+    "image": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=80",
+    "category": "burger",
+    "price": 200,
+    "description": "Crispy fried chicken fillet with coleslaw, pickles, and smoky barbecue sauce."
+  },
+  {
+    "id": "paneer-burger",
+    "name": "Paneer Burger",
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&q=80",
+    "category": "burger",
+    "price": 160,
+    "description": "Grilled paneer patty with mint chutney, onions, and soft sesame bun."
+  },
+  {
+    "id": "margherita-pizza",
+    "name": "Margherita Pizza",
+    "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&q=80",
+    "category": "pizza",
+    "price": 250,
+    "description": "Classic thin crust pizza with tomato sauce, fresh mozzarella, and basil leaves."
+  },
+  {
+    "id": "farmhouse-pizza",
+    "name": "Farmhouse Pizza",
+    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80",
+    "category": "pizza",
+    "price": 350,
+    "description": "Loaded with bell peppers, onions, mushrooms, olives, and extra cheese on a crisp base."
+  },
+  {
+    "id": "pepperoni-pizza",
+    "name": "Pepperoni Pizza",
+    "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=800&q=80",
+    "category": "pizza",
+    "price": 320,
+    "description": "Spicy pepperoni slices on a cheesy tomato base with herbs and olive oil drizzle."
+  },
+  {
+    "id": "bbq-chicken-pizza",
+    "name": "BBQ Chicken Pizza",
+    "image": "https://images.unsplash.com/photo-1593504049359-74330189a345?w=800&q=80",
+    "category": "pizza",
+    "price": 380,
+    "description": "Smoky barbecue chicken, red onions, and mozzarella on a golden crust."
+  },
+  {
+    "id": "french-fries",
+    "name": "French Fries",
+    "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&q=80",
+    "category": "sides",
+    "price": 90,
+    "description": "Golden crispy fries seasoned with herbs and served with tangy ketchup."
+  },
+  {
+    "id": "sandwich",
+    "name": "Grilled Sandwich",
+    "image": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&q=80",
+    "category": "sides",
+    "price": 110,
+    "description": "Grilled sandwich stuffed with vegetables, cheese, and herbs on artisan bread."
+  },
+  {
+    "id": "pasta",
+    "name": "Creamy Pasta",
+    "image": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&q=80",
+    "category": "sides",
+    "price": 220,
+    "description": "Creamy Alfredo pasta tossed with herbs, garlic, and parmesan cheese."
+  },
+  {
+    "id": "garlic-bread",
+    "name": "Garlic Bread",
+    "image": "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=800&q=80",
+    "category": "sides",
+    "price": 99,
+    "description": "Buttery toasted bread loaded with garlic, parsley, and melted cheese."
+  },
+  {
+    "id": "onion-rings",
+    "name": "Onion Rings",
+    "image": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&q=80",
+    "category": "sides",
+    "price": 130,
+    "description": "Crunchy battered onion rings served hot with spicy mayo dip."
+  },
+  {
+    "id": "cold-coffee",
+    "name": "Cold Coffee",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80",
+    "category": "beverage",
+    "price": 150,
+    "description": "Chilled blended coffee with milk, ice, and a touch of vanilla sweetness."
+  },
+  {
+    "id": "coke",
+    "name": "Coke",
+    "image": "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=800&q=80",
+    "category": "beverage",
+    "price": 50,
+    "description": "Ice-cold cola served chilled for the perfect refreshment."
+  },
+  {
+    "id": "lemon-iced-tea",
+    "name": "Lemon Iced Tea",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800&q=80",
+    "category": "beverage",
+    "price": 90,
+    "description": "Refreshing brewed tea with fresh lemon, ice, and a hint of mint."
+  },
+  {
+    "id": "mango-shake",
+    "name": "Mango Shake",
+    "image": "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=800&q=80",
+    "category": "beverage",
+    "price": 140,
+    "description": "Thick Alphonso mango shake blended with milk and topped with cream."
+  },
+  {
+    "id": "fresh-lime-soda",
+    "name": "Fresh Lime Soda",
+    "image": "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=800&q=80",
+    "category": "beverage",
+    "price": 70,
+    "description": "Sparkling soda with fresh lime juice, salt, and crushed ice."
+  },
+  {
+    "id": "chocolate-cake",
+    "name": "Chocolate Cake",
+    "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80",
+    "category": "dessert",
+    "price": 120,
+    "description": "Rich layered chocolate cake with ganache frosting and cocoa dust."
+  },
+  {
+    "id": "gulab-jamun",
+    "name": "Gulab Jamun",
+    "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800&q=80",
+    "category": "dessert",
+    "price": 80,
+    "description": "Soft milk dumplings soaked in warm cardamom sugar syrup."
+  },
+  {
+    "id": "ice-cream-sundae",
+    "name": "Ice Cream Sundae",
+    "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&q=80",
+    "category": "dessert",
+    "price": 150,
+    "description": "Vanilla ice cream topped with chocolate sauce, nuts, and a cherry."
+  },
+  {
+    "id": "glazed-donut",
+    "name": "Glazed Donut",
+    "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=80",
+    "category": "dessert",
+    "price": 60,
+    "description": "Fluffy ring donut with glossy sugar glaze and a light vanilla finish."
+  }
+]

@@ -25,6 +25,7 @@ export type AgentUiStatus =
   | "listening"
   | "thinking"
   | "speaking"
+  | "navigating"
   | "error";
 
 export interface ConversationLine {
@@ -42,11 +43,16 @@ export function useVoiceAssistant() {
   const [conversation, setConversation] = useState<ConversationLine[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [hasApiKey, setHasApiKey] = useState(hasVoiceAgentCredentials());
+  const [isNavigatingToCheckout, setIsNavigatingToCheckout] = useState(false);
 
   const sessionRef = useRef<AgentSession | null>(null);
   const micRef = useRef<AgentMicrophone | null>(null);
   const playerRef = useRef<AgentPlayer | null>(null);
   const lineIdRef = useRef(0);
+  const pendingCheckoutRef = useRef(false);
+  const checkoutTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const CHECKOUT_NAV_DELAY_MS = 1400;
 
   const scrollToCart = useCallback(() => {
     document.getElementById("cart-panel")?.scrollIntoView({
@@ -81,9 +87,8 @@ export function useVoiceAssistant() {
       setSearchQuery: cart.setSearchQuery,
       setCategoryFilter: cart.setCategoryFilter,
       scrollToCart,
-      goToCheckout: () => router.push("/checkout"),
     };
-  }, [cart, scrollToCart, router]);
+  }, [cart, scrollToCart]);
 
   // Session handlers are registered once at connect; keep cart reads fresh.
   const buildActionContextRef = useRef(buildActionContext);
@@ -92,6 +97,11 @@ export function useVoiceAssistant() {
   }, [buildActionContext]);
 
   const stopMedia = useCallback(() => {
+    if (checkoutTimerRef.current) {
+      clearTimeout(checkoutTimerRef.current);
+      checkoutTimerRef.current = null;
+    }
+    pendingCheckoutRef.current = false;
     micRef.current?.stop();
     micRef.current = null;
     playerRef.current?.dispose();
@@ -104,6 +114,7 @@ export function useVoiceAssistant() {
     stopMedia();
     session?.disconnect();
     setIsActive(false);
+    setIsNavigatingToCheckout(false);
     setAgentStatus("idle");
   }, [stopMedia]);
 
@@ -173,6 +184,16 @@ export function useVoiceAssistant() {
       session.on("agent-started-speaking", () => setAgentStatus("speaking"));
 
       session.on("agent-audio-done", () => {
+        if (pendingCheckoutRef.current) {
+          pendingCheckoutRef.current = false;
+          setAgentStatus("navigating");
+          setIsNavigatingToCheckout(true);
+          checkoutTimerRef.current = setTimeout(() => {
+            checkoutTimerRef.current = null;
+            router.push("/checkout");
+          }, CHECKOUT_NAV_DELAY_MS);
+          return;
+        }
         if (session.state === "connected") setAgentStatus("listening");
       });
 
@@ -191,6 +212,16 @@ export function useVoiceAssistant() {
           }
 
           const result = executeAgentFunction(fn.name, args, ctx);
+          if (fn.name === "go_to_checkout") {
+            try {
+              const parsed = JSON.parse(result) as { success?: boolean };
+              if (parsed.success) {
+                pendingCheckoutRef.current = true;
+              }
+            } catch {
+              // ignore parse errors
+            }
+          }
           session.sendFunctionCallResponse(fn.id, fn.name, result);
         }
       });
@@ -238,6 +269,7 @@ export function useVoiceAssistant() {
     appendConversation,
     stopMedia,
     teardown,
+    router,
   ]);
 
   useEffect(() => {
@@ -264,6 +296,7 @@ export function useVoiceAssistant() {
     voiceFeedback: latestAssistantLine?.content ?? null,
     error,
     hasApiKey,
+    isNavigatingToCheckout,
     toggleListening,
   };
 }

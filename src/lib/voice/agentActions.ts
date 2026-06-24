@@ -17,7 +17,7 @@ export interface AgentActionContext {
   setSearchQuery: (query: string) => void;
   setCategoryFilter: (category: MenuCategory | "all") => void;
   scrollToCart: () => void;
-  goToCheckout: () => void;
+  goToCheckout?: () => void;
 }
 
 function cartSummary(ctx: AgentActionContext): string {
@@ -147,11 +147,11 @@ export function executeAgentFunction(
           message: "Cart is empty. Add items before checkout.",
         });
       }
-      ctx.goToCheckout();
       return JSON.stringify({
         success: true,
-        message: "Navigating to checkout.",
+        message: `Ready for checkout. Total is ${formatINR(ctx.grandTotal)} for ${ctx.itemCount} item(s). Confirm warmly and tell the customer you are taking them to checkout now — navigation happens after you finish speaking.`,
         total: formatINR(ctx.grandTotal),
+        item_count: ctx.itemCount,
       });
 
     default:

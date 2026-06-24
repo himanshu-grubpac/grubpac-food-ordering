@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { AppProviders } from "@/components/providers/AppProviders";
-import { SITE_NAME, SITE_TAGLINE } from "@/lib/branding";
+import { LOGO_PATH, SITE_NAME, SITE_TAGLINE } from "@/lib/branding";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,6 +18,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: SITE_NAME,
   description: SITE_TAGLINE,
+  icons: {
+    icon: LOGO_PATH,
+    shortcut: LOGO_PATH,
+    apple: LOGO_PATH,
+  },
 };
 
 export default function RootLayout({

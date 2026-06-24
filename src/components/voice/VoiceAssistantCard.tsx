@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertCircle, Bot, Sparkles, User } from "lucide-react";
+import { AlertCircle, Bot, Loader2, Sparkles, User } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MicrophoneButton } from "@/components/voice/MicrophoneButton";
 import {
@@ -23,6 +24,7 @@ const statusLabels: Record<AgentUiStatus, string> = {
   listening: "Listening — speak naturally",
   thinking: "Thinking…",
   speaking: "Assistant is speaking…",
+  navigating: "Taking you to checkout…",
   error: "Voice agent error",
 };
 
@@ -33,8 +35,17 @@ export function VoiceAssistantCard() {
     conversation,
     error,
     hasApiKey,
+    isNavigatingToCheckout,
     toggleListening,
   } = useVoiceAssistant();
+
+  const conversationRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = conversationRef.current;
+    if (!el || conversation.length === 0) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  }, [conversation, agentStatus]);
 
   return (
     <motion.div
@@ -42,7 +53,7 @@ export function VoiceAssistantCard() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <Card className="overflow-hidden border-primary/30 bg-gradient-to-br from-card via-card to-primary/10 dark:border-primary/40 dark:from-card dark:via-secondary/40 dark:to-primary/10">
+      <Card className="relative overflow-hidden border-primary/30 bg-gradient-to-br from-card via-card to-primary/10 dark:border-primary/40 dark:from-card dark:via-secondary/40 dark:to-primary/10">
         <CardHeader className="text-center">
           <div className="mx-auto mb-2 flex items-center gap-2 text-primary">
             <Sparkles className="h-4 w-4" />
@@ -66,7 +77,9 @@ export function VoiceAssistantCard() {
           <p
             className={cn(
               "text-sm font-medium",
-              agentStatus === "listening" || agentStatus === "speaking"
+              agentStatus === "listening" ||
+                agentStatus === "speaking" ||
+                agentStatus === "navigating"
                 ? "text-primary"
                 : "text-muted-foreground"
             )}
@@ -77,7 +90,8 @@ export function VoiceAssistantCard() {
           </p>
 
           <div
-            className="max-h-64 w-full max-w-xl overflow-y-auto rounded-xl border border-border bg-muted/60 px-4 py-3 dark:bg-secondary/70"
+            ref={conversationRef}
+            className="max-h-64 w-full max-w-xl overflow-y-auto rounded-xl border border-border bg-muted/60 px-4 py-3 scroll-smooth dark:bg-secondary/70"
             role="log"
             aria-live="polite"
             aria-label="Voice conversation"
@@ -121,6 +135,22 @@ export function VoiceAssistantCard() {
               </AnimatePresence>
             )}
           </div>
+
+          <AnimatePresence>
+            {isNavigatingToCheckout && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 rounded-xl bg-background/85 backdrop-blur-sm"
+              >
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                <p className="text-sm font-medium text-foreground">
+                  Preparing checkout…
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {error && (
             <div className="flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-2 text-sm text-destructive">
